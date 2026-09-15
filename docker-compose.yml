@@ -1,0 +1,183 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: idhrts_db
+    environment:
+      POSTGRES_DB: idhrts_db
+      POSTGRES_USER: idhrts_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme123}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U idhrts_user -d idhrts_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: idhrts_redis
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./idhrts_backend
+      dockerfile: Dockerfile
+    container_name: idhrts_backend
+    environment:
+      - DEBUG=${DEBUG:-False}
+      - SECRET_KEY=${SECRET_KEY:-django-insecure-change-in-production}
+      - DATABASE_ENGINE=django.db.backends.postgresql
+      - DATABASE_NAME=idhrts_db
+      - DATABASE_USER=idhrts_user
+      - DATABASE_PASSWORD=${POSTGRES_PASSWORD:-changeme123}
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - ALLOWED_HOSTS=backend,localhost,127.0.0.1
+      - ALLOWED_GOVERNMENT_IPS=${ALLOWED_GOVERNMENT_IPS:-127.0.0.1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16}
+      - CORS_ALLOW_ALL_ORIGINS=True
+      - PUBLIC_BASE_URL=${PUBLIC_BASE_URL:-}
+      - FRONTEND_BASE_URL=${FRONTEND_BASE_URL:-}
+      - CHAPA_SECRET_KEY=${CHAPA_SECRET_KEY:-}
+      - CHAPA_WEBHOOK_SECRET=${CHAPA_WEBHOOK_SECRET:-chapa-secret}
+      - AFROMESSAGE_API_KEY=${AFROMESSAGE_API_KEY:-}
+      - BYPASS_TIME_CHECK=True
+    volumes:
+      - ./idhrts_backend/media:/app/media
+      - ./idhrts_backend/staticfiles:/app/staticfiles
+      - ./idhrts_backend/archives:/app/archives
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import requests; requests.get('http://localhost:8000/api/', timeout=5)\" || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    command: >
+      sh -c "
+        python manage.py migrate --noinput &&
+        python manage.py collectstatic --noinput --clear &&
+        gunicorn core.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 120
+      "
+
+  celery:
+    build:
+      context: ./idhrts_backend
+      dockerfile: Dockerfile
+    container_name: idhrts_celery
+    environment:
+      - DEBUG=${DEBUG:-False}
+      - SECRET_KEY=${SECRET_KEY:-django-insecure-change-in-production}
+      - DATABASE_ENGINE=django.db.backends.postgresql
+      - DATABASE_NAME=idhrts_db
+      - DATABASE_USER=idhrts_user
+      - DATABASE_PASSWORD=${POSTGRES_PASSWORD:-changeme123}
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - PUBLIC_BASE_URL=${PUBLIC_BASE_URL:-}
+      - FRONTEND_BASE_URL=${FRONTEND_BASE_URL:-}
+      - AFROMESSAGE_API_KEY=${AFROMESSAGE_API_KEY:-}
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A core status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    command: celery -A core worker -l info
+
+  celery-beat:
+    build:
+      context: ./idhrts_backend
+      dockerfile: Dockerfile
+    container_name: idhrts_celery_beat
+    environment:
+      - DEBUG=${DEBUG:-False}
+      - SECRET_KEY=${SECRET_KEY:-django-insecure-change-in-production}
+      - DATABASE_ENGINE=django.db.backends.postgresql
+      - DATABASE_NAME=idhrts_db
+      - DATABASE_USER=idhrts_user
+      - DATABASE_PASSWORD=${POSTGRES_PASSWORD:-changeme123}
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - PUBLIC_BASE_URL=${PUBLIC_BASE_URL:-}
+      - FRONTEND_BASE_URL=${FRONTEND_BASE_URL:-}
+      - AFROMESSAGE_API_KEY=${AFROMESSAGE_API_KEY:-}
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "ps -ef | grep [c]elery || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    command: celery -A core beat -l info --schedule=/tmp/celerybeat-schedule --pidfile=
+
+  frontend:
+    build:
+      context: ./idhrts_frontend
+      dockerfile: Dockerfile
+    container_name: idhrts_frontend
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://backend:8000/api
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"require('http').get('http://127.0.0.1:3000/login', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)}).on('error', () => process.exit(1))\""]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    container_name: idhrts_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./idhrts_backend/staticfiles:/app/staticfiles:ro
+      - ./idhrts_backend/media:/app/media:ro
+    depends_on:
+      - frontend
+      - backend
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  default:
+    name: idhrts_network

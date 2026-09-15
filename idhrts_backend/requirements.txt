@@ -1,0 +1,77 @@
+# Production dependencies only - no test packages
+# Django and core
+Django==5.2.17
+djangorestframework==3.18.0
+drf-spectacular==0.28.0
+djangorestframework_simplejwt==5.5.1
+django-cors-headers==4.9.0
+
+# Database
+psycopg2-binary==2.9.10
+
+# Authentication & Security
+bcrypt==5.0.0
+PyJWT==2.13.0
+cryptography==50.0.1
+
+# Celery and Redis
+celery==5.6.3
+redis==8.1.0
+amqp==5.3.1
+billiard==4.2.4
+kombu==5.6.2
+vine==5.1.0
+click==8.5.0
+click-didyoumean==0.3.1
+click-plugins==1.1.1.2
+click-repl==0.3.0
+prompt_toolkit==3.0.53
+
+# PDF generation
+reportlab==5.0.1
+Pillow==12.3.0
+qrcode==8.2
+
+# HTTP requests
+requests==2.34.2
+urllib3==2.7.0
+certifi==2026.7.22
+charset-normalizer==3.5.1
+idna==3.19
+
+# Configuration
+python-decouple==3.8
+
+# Utilities
+python-dateutil==2.9.0.post0
+pytz==2026.3.post1
+tzdata==2026.3
+tzlocal==5.4.4
+six==1.17.0
+
+# Web server
+gunicorn==23.0.0
+
+# Core dependencies
+asgiref==3.12.1
+sqlparse==0.6.0
+packaging==26.3
+wcwidth==0.8.2
+cffi==2.1.1
+pycparser==3.0
+Pygments==2.21.0
+async-timeout==5.0.1
+typing_extensions==4.16.0
+
+# Development/Testing dependencies (commented out for production)
+# Uncomment for development environments
+# pytest==9.1.1
+# pytest-django==4.14.0
+# pytest-cov==7.1.0
+# pytest-mock==3.15.1
+# coverage==7.16.0
+# freezegun==1.5.5
+# iniconfig==2.3.0
+# pluggy==1.6.0
+# tomli==2.4.1
+django-filter==23.5

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`StatusBadge Component matches snapshot for known status 1`] = `
+<DocumentFragment>
+  <span
+    class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wide bg-green-100 text-green-800 "
+  >
+    ACTIVE
+  </span>
+</DocumentFragment>
+`;
+
+exports[`StatusBadge Component matches snapshot for unknown status 1`] = `
+<DocumentFragment>
+  <span
+    class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wide bg-gray-100 text-gray-600 "
+  >
+    UNKNOWN_STATE
+  </span>
+</DocumentFragment>
+`;

@@ -1,0 +1,15 @@
+[run]
+omit =
+    venv/*
+    */migrations/*
+    */management/commands/seed_*.py
+    */test_*.py
+    */tests.py
+    *_tests.py
+    manage.py
+    core/asgi.py
+    core/wsgi.py
+
+[report]
+show_missing = True
+skip_covered = False
