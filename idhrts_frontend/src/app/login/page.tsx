@@ -31,6 +31,7 @@ export default function LoginPage() {
       else if (res.data.role === 'TENANT') router.push('/dashboard/tenant');
       else if (res.data.role === 'WOREDA_OFFICER') router.push('/dashboard/woreda');
       else if (res.data.role === 'TAX_OFFICER') router.push('/dashboard/tax');
+      else if (res.data.role === 'ADMIN' || res.data.role === 'SYSTEM_ADMIN') router.push('/dashboard/admin');
     } catch (err: any) {
       console.error("Login Error:", err?.response?.status, err?.response?.data);
       if (err?.response?.status === 423) {
