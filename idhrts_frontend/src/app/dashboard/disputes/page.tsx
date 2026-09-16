@@ -74,10 +74,10 @@ export default function DisputesDashboard() {
         </div>
       )}
 
-      <main className="max-w-5xl mx-auto px-8 py-8">
-        <div className="flex items-start justify-between mb-6">
+      <main className="max-w-5xl mx-auto px-4 sm:px-8 py-6 sm:py-8">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-6">
           <div>
-            <h1 className="text-[32px] font-black text-[#111827] leading-tight">My Disputes</h1>
+            <h1 className="text-[22px] sm:text-[32px] font-black text-[#111827] leading-tight">My Disputes</h1>
             <p className="text-[14px] text-gray-500 mt-1">View and manage your filed disputes</p>
           </div>
           <button 
@@ -96,8 +96,8 @@ export default function DisputesDashboard() {
         ) : disputes.length === 0 ? (
           <EmptyState title="No Disputes" description="You have not filed any disputes." />
         ) : (
-          <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden">
-            <table className="w-full text-[14px]">
+          <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden overflow-x-auto">
+            <table className="w-full text-[14px] min-w-[480px]">
               <thead className="bg-gray-50 border-b border-[#E5E7EB]">
                 <tr>
                   <th className="px-4 py-3 text-left text-[11px] font-semibold text-gray-500 uppercase tracking-wide">Title</th>

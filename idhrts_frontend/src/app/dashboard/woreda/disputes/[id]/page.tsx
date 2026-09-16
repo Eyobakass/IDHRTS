@@ -113,7 +113,7 @@ export default function DisputeDetailPage() {
     return (
       <div className="min-h-screen bg-[#F3F4F6]">
         <NavBar portalName="Woreda Officer Portal" variant="dark" />
-        <div className="max-w-3xl mx-auto px-8 py-8">
+        <div className="max-w-3xl mx-auto px-4 sm:px-8 py-4 sm:py-8">
           <div className="bg-white rounded-xl border border-[#E5E7EB] p-8 text-center">
             <p className="text-gray-500">Dispute not found</p>
             <button
@@ -161,7 +161,7 @@ export default function DisputeDetailPage() {
 
         <div className="bg-white rounded-xl border border-[#E5E7EB] shadow-sm overflow-hidden">
           {/* Header */}
-          <div className="bg-gray-50 border-b border-[#E5E7EB] px-6 py-4 flex items-center justify-between">
+          <div className="bg-gray-50 border-b border-[#E5E7EB] px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <h1 className="text-[20px] font-bold text-[#111827]">Dispute Details</h1>
             <StatusBadge status={dispute.status} />
           </div>
@@ -171,7 +171,7 @@ export default function DisputeDetailPage() {
             {/* Dispute Information */}
             <div>
               <h2 className="text-[16px] font-semibold text-[#111827] mb-3">Dispute Information</h2>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div>
                   <p className="text-[12px] text-gray-500 uppercase tracking-wide mb-1">Type</p>
                   <p className="text-[14px] text-[#111827] font-medium">
@@ -295,7 +295,7 @@ export default function DisputeDetailPage() {
                     className="w-full border border-gray-300 rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-[#2563EB] resize-none"
                   />
                   {error && <p className="text-[13px] text-red-600 mt-2">{error}</p>}
-                  <div className="flex justify-between items-center mt-3">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mt-3">
                     <p className="text-[12px] text-gray-500">
                       {rulingText.length} / {MIN_RULING_LENGTH} characters minimum
                     </p>
