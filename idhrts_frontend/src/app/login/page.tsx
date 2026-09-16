@@ -5,6 +5,8 @@ import { api } from '@/lib/api';
 import { useAuthStore } from '@/store/authStore';
 import '@/lib/i18n';
 import { useTranslation } from 'react-i18next';
+import Link from 'next/link';
+
 
 export default function LoginPage() {
   const { i18n } = useTranslation();
@@ -145,7 +147,15 @@ export default function LoginPage() {
               <span className="text-[13px] text-[#DC2626] font-medium">{error}</span>
             </div>
           )}
+
+          <div className="mt-5 text-center text-[13px] text-gray-600">
+            Don't have an account?{' '}
+            <Link href="/register" className="text-[#2563EB] font-semibold hover:underline">
+              Register here
+            </Link>
+          </div>
         </form>
+
 
       </div>
     </div>
