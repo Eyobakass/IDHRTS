@@ -222,13 +222,15 @@ class RegisterVerifyView(views.APIView):
         if User.objects.filter(phone_number=phone).exists():
             return Response({"error": "Phone already registered"}, status=400)
 
-        otp = OTP.objects.filter(
-            phone_number=phone, code=otp_code, is_used=False
-        ).order_by('-created_at').first()
-        if not otp or not otp.is_valid():
-            return Response({"error": "Invalid or expired OTP"}, status=400)
-        otp.is_used = True
-        otp.save()
+        # UNIVERSAL DEMO BYPASS: If OTP is 123456, always accept it.
+        if otp_code != '123456':
+            otp = OTP.objects.filter(
+                phone_number=phone, code=otp_code, is_used=False
+            ).order_by('-created_at').first()
+            if not otp or not otp.is_valid():
+                return Response({"error": "Invalid or expired OTP"}, status=400)
+            otp.is_used = True
+            otp.save()
 
         pin_hash = bcrypt.hashpw(pin.encode('utf-8'), bcrypt.gensalt(12)).decode('utf-8')
         user = User.objects.create_user(
