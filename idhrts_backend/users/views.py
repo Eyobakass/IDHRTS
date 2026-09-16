@@ -33,6 +33,7 @@ class LoginView(views.APIView):
     def post(self, request):
         phone = request.data.get('phone_number')
         pin = request.data.get('pin')
+        fayda_id = request.data.get('fayda_id')
         if not phone or not pin:
             return Response({"error": "Phone and PIN required"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -213,6 +214,7 @@ class RegisterVerifyView(views.APIView):
         phone = request.data.get('phone_number')
         otp_code = request.data.get('otp')
         pin = request.data.get('pin')
+        fayda_id = request.data.get('fayda_id')
         role = request.data.get('role', 'LANDLORD')
 
         if not all([phone, otp_code, pin]):
@@ -528,7 +530,6 @@ class CreateOfficerView(views.APIView):
         temp_pin = f"{random.randint(0, 9999):04d}"
         pin_hash = bcrypt.hashpw(temp_pin.encode('utf-8'), bcrypt.gensalt(12)).decode('utf-8')
 
-        fayda_id = request.data.get('fayda_id')
         sub_city_id = request.data.get('sub_city')
         woreda_id = request.data.get('woreda')
 
