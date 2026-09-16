@@ -154,7 +154,7 @@ export default function WoreditaPropertyDetail() {
 
       {/* Toast */}
       {toast && (
-        <div className={`fixed top-4 right-4 z-50 flex items-center gap-3 px-5 py-3 rounded-xl shadow-lg text-white text-[14px] font-medium ${
+        <div className={`fixed top-4 right-4 z-50 flex flex-wrap items-center gap-2 sm:gap-3 px-5 py-3 rounded-xl shadow-lg text-white text-[14px] font-medium ${
           toast.type === 'success' ? 'bg-green-600' : 'bg-red-600'
         }`}>
           <span>{toast.type === 'success' ? '✓' : '✕'}</span>
@@ -202,7 +202,7 @@ export default function WoreditaPropertyDetail() {
         </div>
       )}
 
-      <main className="max-w-7xl mx-auto px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-8 py-4 sm:py-8">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-[13px] text-[#6B7280] mb-6">
           <Link href="/dashboard/woreda" className="hover:text-[#2563EB] transition-colors flex items-center gap-1">
@@ -214,13 +214,13 @@ export default function WoreditaPropertyDetail() {
         </nav>
 
         {/* Page Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6 sm:mb-8">
           <div className="flex items-center gap-4">
-            <h1 className="text-[32px] font-bold text-[#111827]">House #{property.house_number}</h1>
+            <h1 className="text-[22px] sm:text-[32px] font-bold text-[#111827]">House #{property.house_number}</h1>
             <StatusBadge status={property.status} />
           </div>
           {isPendingReview && (
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
               <button
                 onClick={() => setShowRejectModal(true)}
                 disabled={acting}
@@ -246,7 +246,7 @@ export default function WoreditaPropertyDetail() {
 
         {/* Already reviewed banner */}
         {property.status === 'ACTIVE' && (
-          <div className="mb-6 bg-green-50 border border-green-200 rounded-xl p-4 flex items-center gap-3">
+          <div className="mb-6 bg-green-50 border border-green-200 rounded-xl p-4 flex flex-wrap items-center gap-2 sm:gap-3">
             <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
@@ -265,16 +265,16 @@ export default function WoreditaPropertyDetail() {
           </div>
         )}
 
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* LEFT — span 2 */}
-          <div className="col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-6">
 
             <div className="bg-white rounded-xl border border-[#E5E7EB] shadow-sm p-6">
               <h2 className="text-[17px] font-bold text-[#111827] mb-4 flex items-center gap-2">
                 <span className="w-7 h-7 bg-[#EFF6FF] rounded-lg flex items-center justify-center text-sm">🏠</span>
                 Property Information
               </h2>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 <InfoItem label="Building Type" value={property.building_type?.replace(/_/g, ' ')} icon="🏢" />
                 <InfoItem label="Number of Rooms" value={property.num_rooms} icon="🛏" />
                 <InfoItem label="Floor Area" value={property.floor_area_sqm ? `${property.floor_area_sqm} sqm` : null} icon="📐" />
@@ -289,7 +289,7 @@ export default function WoreditaPropertyDetail() {
                 <span className="w-7 h-7 bg-[#EFF6FF] rounded-lg flex items-center justify-center text-sm">📍</span>
                 Location Details
               </h2>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 <InfoItem label="Sub-City" value={typeof property.sub_city === 'object' ? property.sub_city?.name : property.sub_city} icon="🗺" />
                 <InfoItem label="Woreda" value={typeof property.woreda === 'object' ? property.woreda?.name : property.woreda} icon="📌" />
                 <InfoItem label="Kebele" value={property.kebele} icon="🏘" />
@@ -362,7 +362,7 @@ export default function WoreditaPropertyDetail() {
             {property.landlord_detail && (
               <div className="bg-white rounded-xl border border-[#E5E7EB] shadow-sm p-6">
                 <h3 className="text-[15px] font-bold text-[#111827] mb-4">Landlord Info</h3>
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                   <div className="w-11 h-11 rounded-full bg-[#1E3A5F] flex items-center justify-center text-white font-bold text-[15px] shrink-0">
                     {property.landlord_detail.full_name_en.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
                   </div>
