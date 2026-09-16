@@ -201,7 +201,7 @@ export default function AdminDashboardPage() {
   };
 
   const renderOfficers = () => (
-    <div className="bg-white rounded-xl shadow-sm border border-[#E5E7EB] overflow-hidden animate-fade-in">
+    <div className="bg-white rounded-xl shadow-sm border border-[#E5E7EB] overflow-hidden overflow-x-auto animate-fade-in">
       {officersLoading ? (
         <div className="p-8 text-center animate-pulse">Loading officers...</div>
       ) : officers.length === 0 ? (
@@ -210,29 +210,29 @@ export default function AdminDashboardPage() {
         <table className="min-w-full divide-y divide-[#E5E7EB]">
           <thead className="bg-[#F9FAFB]">
             <tr>
-              <th className="px-6 py-3 text-left text-[12px] font-semibold text-[#6B7280] uppercase tracking-wider">Name</th>
-              <th className="px-6 py-3 text-left text-[12px] font-semibold text-[#6B7280] uppercase tracking-wider">Phone</th>
-              <th className="px-6 py-3 text-left text-[12px] font-semibold text-[#6B7280] uppercase tracking-wider">Role</th>
-              <th className="px-6 py-3 text-left text-[12px] font-semibold text-[#6B7280] uppercase tracking-wider">Status</th>
+              <th className="px-4 py-3 text-left text-[12px] font-semibold text-[#6B7280] uppercase tracking-wider whitespace-nowrap">Name</th>
+              <th className="px-4 py-3 text-left text-[12px] font-semibold text-[#6B7280] uppercase tracking-wider whitespace-nowrap">Phone</th>
+              <th className="px-4 py-3 text-left text-[12px] font-semibold text-[#6B7280] uppercase tracking-wider whitespace-nowrap">Role</th>
+              <th className="px-4 py-3 text-left text-[12px] font-semibold text-[#6B7280] uppercase tracking-wider whitespace-nowrap">Status</th>
               <th className="px-6 py-3 text-right text-[12px] font-semibold text-[#6B7280] uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-[#E5E7EB]">
             {officers.map((o) => (
               <tr key={o.id}>
-                <td className="px-6 py-4 whitespace-nowrap text-[14px] font-medium text-[#111827]">{o.full_name_en}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-[14px] text-[#6B7280]">{o.phone_number}</td>
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-4 py-3 whitespace-nowrap text-[14px] font-medium text-[#111827]">{o.full_name_en}</td>
+                <td className="px-4 py-3 whitespace-nowrap text-[14px] text-[#6B7280]">{o.phone_number}</td>
+                <td className="px-4 py-3 whitespace-nowrap">
                   <span className="px-2.5 py-1 rounded-full text-[12px] font-medium bg-blue-50 text-blue-700 border border-blue-200">
                     {o.role.replace('_', ' ')}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-4 py-3 whitespace-nowrap">
                   <span className={`px-2.5 py-1 rounded-full text-[12px] font-medium border ${o.is_active ? 'bg-green-50 text-green-700 border-green-200' : 'bg-gray-50 text-gray-700 border-gray-200'}`}>
                     {o.is_active ? 'Active' : 'Inactive'}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right text-[13px]">
+                <td className="px-4 py-3 whitespace-nowrap text-right text-[13px]">
                   <button
                     onClick={() => handleDownloadReport(o.id, o.full_name_en)}
                     disabled={actionLoading === o.id}
@@ -382,7 +382,7 @@ export default function AdminDashboardPage() {
           </div>
         )}
         {activeTab === 'audit-log' && (
-          <div className="bg-white rounded-xl shadow-sm border border-[#E5E7EB] overflow-hidden">
+          <div className="bg-white rounded-xl shadow-sm border border-[#E5E7EB] overflow-hidden overflow-x-auto">
             <div className="px-6 py-4 border-b border-[#E5E7EB] flex justify-between items-center">
               <h2 className="text-[16px] font-bold text-[#111827]">System Audit Log</h2>
               <button onClick={fetchAuditLogs} className="text-[13px] text-blue-600 hover:underline">Refresh</button>
@@ -392,7 +392,7 @@ export default function AdminDashboardPage() {
                 <thead className="bg-[#F9FAFB]">
                   <tr>
                     {['Timestamp', 'Actor', 'Action', 'Resource', 'IP Address'].map(h => (
-                      <th key={h} className="px-4 py-3 text-left text-[11px] font-semibold text-gray-500 uppercase tracking-wide">{h}</th>
+                      <th key={h} className="px-3 sm:px-4 py-3 text-left text-[11px] font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap">{h}</th>
                     ))}
                   </tr>
                 </thead>
