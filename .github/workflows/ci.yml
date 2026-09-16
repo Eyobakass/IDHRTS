@@ -1,4 +1,4 @@
-﻿name: CI/CD Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
@@ -63,12 +63,12 @@ jobs:
     - name: Set up Node.js 18
       uses: actions/setup-node@v3
       with:
-        node-version: '18'
+        node-version: '20'
 
     - name: Install frontend dependencies
       run: |
         cd idhrts_frontend
-        npm ci
+        npm install --legacy-peer-deps
 
     - name: Build Next.js
       env:
@@ -98,12 +98,12 @@ jobs:
     - name: Set up Node.js 18
       uses: actions/setup-node@v3
       with:
-        node-version: '18'
+        node-version: '20'
 
     - name: Install Playwright & Dependencies
       run: |
         cd idhrts_frontend
-        npm ci
+        npm install --legacy-peer-deps
         npx playwright install --with-deps chromium
 
     - name: Run Playwright E2E Tests
