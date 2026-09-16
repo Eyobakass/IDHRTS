@@ -13,6 +13,7 @@ export default function RegisterPage() {
   const [phone, setPhone] = useState('');
   const [fullNameEn, setFullNameEn] = useState('');
   const [fullNameAm, setFullNameAm] = useState('');
+  const [faydaId, setFaydaId] = useState('');
   const [pin, setPin] = useState('');
   const [otp, setOtp] = useState('');
   const [error, setError] = useState('');
@@ -42,6 +43,7 @@ export default function RegisterPage() {
         phone_number: phone,
         otp,
         pin,
+        fayda_id: faydaId,
         role,
         full_name_en: fullNameEn,
         full_name_am: fullNameAm,
@@ -126,7 +128,11 @@ export default function RegisterPage() {
                 placeholder="+251..." className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-[14px] focus:outline-none focus:ring-2 focus:ring-[#2563EB]" />
             </div>
             <div>
-              <label className="block text-[13px] font-semibold text-[#111827] mb-1.5">PIN (4–6 digits)</label>
+              <label className="block text-[13px] font-semibold text-[#111827] mb-1.5">Fayda National ID (Required for Tenants)</label>
+              <input type="text" value={faydaId} onChange={e => setFaydaId(e.target.value)} placeholder="FAYDA-..." className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-[14px] focus:outline-none focus:ring-2 focus:ring-[#2563EB]" required={role === "TENANT"} />
+            </div>
+            <div>
+              <label className="block text-[13px] font-semibold text-[#111827] mb-1.5">PIN (4-6 digits)</label>
               <input type="password" inputMode="numeric" pattern="[0-9]*" maxLength={6} required value={pin} onChange={e => setPin(e.target.value)}
                 placeholder="••••••" className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-[14px] tracking-widest focus:outline-none focus:ring-2 focus:ring-[#2563EB]" />
             </div>

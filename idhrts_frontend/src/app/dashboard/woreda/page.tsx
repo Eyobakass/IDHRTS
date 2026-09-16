@@ -46,7 +46,7 @@ interface Contract {
   monthly_rent_etb: number;
   status: string;
   landlord_detail?: { full_name_en?: string };
-  tenant_detail?: { full_name_en?: string };
+  tenant_detail?: { full_name_en?: string; tin?: string };
   property_detail?: { house_number?: string; building_type?: string };
 }
 
@@ -456,7 +456,7 @@ export default function WoredaDashboard() {
                   <table className="w-full text-[14px]">
                     <thead className="bg-gray-50 border-b border-[#E5E7EB]">
                       <tr>
-                        {["Property", "Landlord", "Tenant", "Rent (ETB)", "Status", "Actions"].map((h) => (
+                        {["Property", "Landlord", "Tenant", "Tenant Fayda ID", "Rent (ETB)", "Status", "Actions"].map((h) => (
                           <th key={h} className="px-4 py-3 text-left text-[11px] font-semibold text-gray-500 uppercase tracking-wide">{h}</th>
                         ))}
                       </tr>
@@ -467,6 +467,7 @@ export default function WoredaDashboard() {
                           <td className="px-4 py-4 font-semibold text-[#111827]">#{c.property_detail?.house_number ?? "\u2014"}</td>
                           <td className="px-4 py-4 text-gray-700">{c.landlord_detail?.full_name_en ?? "\u2014"}</td>
                           <td className="px-4 py-4 text-gray-700">{c.tenant_detail?.full_name_en ?? "\u2014"}</td>
+                            <td className="px-4 py-4 text-gray-700 font-mono text-[12px]">{c.tenant_detail?.tin || <span className="text-red-500 font-semibold">Missing (Reject)</span>}</td>
                           <td className="px-4 py-4 text-[#111827] font-medium">{c.monthly_rent_etb?.toLocaleString()}</td>
                           <td className="px-4 py-4"><StatusBadge status={c.status} /></td>
                             <td className="px-4 py-4">

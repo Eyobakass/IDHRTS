@@ -7,7 +7,7 @@ from properties.models import Property
 class UserMiniSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'full_name_en', 'phone_number']
+        fields = ['id', 'full_name_en', 'phone_number', 'tin']
 
 
 class PropertyMiniSerializer(serializers.ModelSerializer):

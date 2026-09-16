@@ -236,7 +236,8 @@ class RegisterVerifyView(views.APIView):
             full_name_en=request.data.get('full_name_en', ''),
             full_name_am=request.data.get('full_name_am', ''),
             role=role,
-            pin_hash=pin_hash
+            pin_hash=pin_hash,
+            tin=fayda_id
         )
         return Response({"message": "Registration complete.", "user_id": user.id}, status=201)
 
@@ -525,6 +526,7 @@ class CreateOfficerView(views.APIView):
         temp_pin = f"{random.randint(0, 9999):04d}"
         pin_hash = bcrypt.hashpw(temp_pin.encode('utf-8'), bcrypt.gensalt(12)).decode('utf-8')
 
+        fayda_id = request.data.get('fayda_id')
         sub_city_id = request.data.get('sub_city')
         woreda_id = request.data.get('woreda')
 
