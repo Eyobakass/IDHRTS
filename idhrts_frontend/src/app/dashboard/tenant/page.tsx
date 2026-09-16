@@ -129,7 +129,7 @@ export default function TenantDashboard() {
     if (contracts.length === 0) return <EmptyState title="No Contracts Yet" description="Your landlord will send you a contract when ready." />;
 
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fade-in">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 animate-fade-in">
         {contracts.map(c => {
           const isRegistered = c.status === 'REGISTERED' || c.status === 'SIGNED';
           const isPending = c.status === 'PENDING_TENANT_SIGNATURE';
@@ -297,10 +297,10 @@ export default function TenantDashboard() {
     <div className="min-h-screen bg-[#F3F4F6]">
       <NavBar portalName="Tenant Portal" />
 
-      <main className="max-w-5xl mx-auto px-8 py-8">
+      <main className="max-w-5xl mx-auto px-4 sm:px-8 py-6 sm:py-8">
         <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <h1 className="text-[32px] font-black text-[#111827] leading-tight">My Dashboard</h1>
+            <h1 className="text-[24px] sm:text-[32px] font-black text-[#111827] leading-tight">My Dashboard</h1>
             <p className="text-[14px] text-gray-500 mt-1">Manage your contracts and resolve issues</p>
           </div>
           
@@ -334,9 +334,9 @@ export default function TenantDashboard() {
         {activeTab === 'contracts' ? renderContracts() : renderDisputes()}
       
       {/* Fix 21: Active Sessions */}
-      <section className="max-w-5xl mx-auto px-6 py-6">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
         <h2 className="text-[16px] font-bold text-[#111827] mb-3">Active Sessions</h2>
-        <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden">
+        <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden overflow-x-auto">
           {sessions.length === 0 ? (
             <div className="p-6 text-center text-gray-400 text-[13px]">No active sessions.</div>
           ) : (
@@ -360,7 +360,7 @@ export default function TenantDashboard() {
       </section>
 
       {/* Fix 28: SMS Notification Preference */}
-      <section className="max-w-5xl mx-auto px-6 pb-10">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-10">
         <div className="bg-white rounded-xl border border-[#E5E7EB] p-5 flex items-center justify-between">
           <div>
             <p className="text-[14px] font-semibold text-[#111827]">SMS Notifications</p>

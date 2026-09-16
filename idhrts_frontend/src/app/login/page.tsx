@@ -47,8 +47,8 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="bg-[#F3F4F6] min-h-screen flex items-center justify-center">
-      <div className="bg-white rounded-2xl shadow-xl border border-gray-100 w-[440px] p-10 relative">
+    <div className="bg-[#F3F4F6] min-h-screen flex items-center justify-center px-4 py-8">
+      <div className="bg-white rounded-2xl shadow-xl border border-gray-100 w-full max-w-[440px] p-6 sm:p-10 relative">
 
         {/* Language Toggle */}
         <div className="absolute top-4 right-5 rounded-full border border-gray-200 flex overflow-hidden">

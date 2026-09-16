@@ -269,7 +269,7 @@ export default function WoredaDashboard() {
   }[section];
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden bg-[#F3F4F6]">
+    <div className="flex flex-col min-h-screen bg-[#F3F4F6]">
       <NavBar portalName="Woreda Officer Portal" variant="dark" />
 
       {toast && (
@@ -284,14 +284,14 @@ export default function WoredaDashboard() {
         </div>
       )}
 
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-col md:flex-row flex-1 md:overflow-hidden">
         {/* Left sidebar */}
-        <aside className="w-[220px] bg-[#374151] flex-shrink-0 flex flex-col py-4">
+        <aside className="w-full md:w-[220px] bg-[#374151] flex-shrink-0 flex flex-row md:flex-col overflow-x-auto md:overflow-visible py-2 md:py-4">
           {NavItems.map((item) => (
             <button
               key={item.id}
               onClick={() => setSection(item.id)}
-              className={`flex items-center gap-3 px-5 py-3 text-[14px] font-medium transition-colors text-left w-full ${
+              className={`flex items-center gap-2 md:gap-3 px-4 md:px-5 py-2 md:py-3 text-[13px] md:text-[14px] font-medium transition-colors text-left whitespace-nowrap md:w-full ${
                 section === item.id
                   ? "bg-white/10 text-white"
                   : "text-gray-400 hover:bg-white/5 hover:text-gray-200"
@@ -321,17 +321,17 @@ export default function WoredaDashboard() {
         </aside>
 
         {/* Main content */}
-        <main className="flex-1 overflow-y-auto">
-          <div className="bg-white border-b border-gray-200 px-8 py-6">
+        <main className="flex-1 md:overflow-y-auto">
+          <div className="bg-white border-b border-gray-200 px-4 sm:px-8 py-4 sm:py-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest mb-1">
                   {section === "properties" ? "Property Registrations" : section === "contracts" ? "Contract Authentication" : section === "disputes" ? "Disputes" : "Assistance"}
                 </p>
-                <h1 className="text-[26px] font-bold text-[#111827]">{sectionTitle}</h1>
+                <h1 className="text-[20px] sm:text-[26px] font-bold text-[#111827]">{sectionTitle}</h1>
                 <p className="text-[13px] text-gray-500 mt-1">{sectionSubtitle}</p>
               </div>
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-2 sm:gap-3">
                 <button 
                   onClick={() => downloadPdf('/reports/woreda-monthly-pdf/', 'Woreda_Monthly_Report.pdf')}
                   className="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg text-[13px] font-medium hover:bg-gray-50 flex items-center gap-2">
@@ -348,7 +348,7 @@ export default function WoredaDashboard() {
             </div>
           </div>
 
-          <div className="px-8 py-6">
+          <div className="px-4 sm:px-8 py-4 sm:py-6">
             {/* PROPERTIES */}
             {section === "properties" && (
               <>
@@ -397,7 +397,7 @@ export default function WoredaDashboard() {
                 ) : finalFilteredProperties.length === 0 ? (
                   <EmptyState title="No Properties" description="No properties match this filter." />
                 ) : (
-                  <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden">
+                  <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden overflow-x-auto">
                     <table className="w-full text-[14px]">
                       <thead className="bg-gray-50 border-b border-[#E5E7EB]">
                         <tr>
@@ -452,7 +452,7 @@ export default function WoredaDashboard() {
               ) : contracts.length === 0 ? (
                 <EmptyState title="No Contracts" description="No contracts awaiting authentication." />
               ) : (
-                <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden">
+                <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden overflow-x-auto">
                   <table className="w-full text-[14px]">
                     <thead className="bg-gray-50 border-b border-[#E5E7EB]">
                       <tr>
@@ -506,7 +506,7 @@ export default function WoredaDashboard() {
               ) : disputes.length === 0 ? (
                 <EmptyState title="No Disputes" description="No disputes have been filed in your woreda." />
               ) : (
-                <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden">
+                <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden overflow-x-auto">
                   <table className="w-full text-[14px]">
                     <thead className="bg-gray-50 border-b border-[#E5E7EB]">
                       <tr>
@@ -548,7 +548,7 @@ export default function WoredaDashboard() {
 
             {/* WALKIN */}
             {section === "walkin" && (
-              <div className="grid grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 <div className="bg-white rounded-xl border border-[#E5E7EB] p-6 shadow-sm">
                   <h3 className="text-[17px] font-bold text-[#111827] mb-2">Register Property for Citizen</h3>
                   <p className="text-[13px] text-gray-500 mb-6">Assist walk-in landlords without smartphones to register their properties.</p>

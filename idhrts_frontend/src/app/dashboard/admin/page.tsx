@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import NavBar from "@/components/NavBar";
@@ -165,7 +165,7 @@ export default function AdminDashboardPage() {
 
     return (
       <div className="space-y-8 animate-fade-in">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
           {cards.map((c, i) => (
             <div key={i} className="bg-white p-6 rounded-xl shadow-sm border border-[#E5E7EB]">
               <p className="text-[13px] font-semibold text-[#6B7280] uppercase tracking-wide">{c.title}</p>
@@ -268,14 +268,14 @@ export default function AdminDashboardPage() {
     <div className="min-h-screen bg-[#F3F4F6]">
       <NavBar portalName="HR Admin Portal" variant="dark" />
 
-      <main className="max-w-7xl mx-auto px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-8 py-6 sm:py-8">
         <div className="mb-8 flex justify-between items-end">
           <div>
-            <h1 className="text-[28px] font-bold text-[#111827] mb-2">System Dashboard</h1>
+            <h1 className="text-[22px] sm:text-[28px] font-bold text-[#111827] mb-2">System Dashboard</h1>
             <p className="text-[14px] text-[#6B7280]">Real-time IDHRTS analytics and officer management.</p>
           </div>
           
-          <div className="flex bg-white rounded-lg p-1 shadow-sm border border-[#E5E7EB]">
+          <div className="flex bg-white rounded-lg p-1 shadow-sm border border-[#E5E7EB] overflow-x-auto max-w-full">
             <button
               onClick={() => setActiveTab('overview')}
               className={`px-4 py-2 text-[14px] font-medium rounded-md transition-colors ${activeTab === 'overview' ? 'bg-[#F3F4F6] text-[#111827]' : 'text-[#6B7280] hover:text-[#111827]'}`}

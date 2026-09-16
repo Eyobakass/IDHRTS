@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import { useEffect, useState } from 'react';
 import { api } from '@/lib/api';
 import NavBar from '@/components/NavBar';
@@ -223,9 +223,9 @@ export default function TaxDashboard() {
         </div>
       )}
 
-      <main className="max-w-5xl mx-auto px-8 py-8">
+      <main className="max-w-5xl mx-auto px-4 sm:px-8 py-6 sm:py-8">
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-[24px] font-bold text-[#111827]">Tax Assessments Overview</h1>
+          <h1 className="text-[20px] sm:text-[24px] font-bold text-[#111827]">Tax Assessments Overview</h1>
           <button 
             onClick={() => downloadPdf('/reports/subcity-revenue-pdf/', 'SubCity_Revenue_Report.pdf')}
             className="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg text-[13px] font-medium hover:bg-gray-50 flex items-center gap-2">
@@ -233,14 +233,14 @@ export default function TaxDashboard() {
             Revenue Report PDF
           </button>
         </div>
-        <div className="grid grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
           <StatCard variant="metric" label="Total Assessments" value={total} icon="document" />
           <StatCard variant="metric" label="Pending Payment" value={pending} icon="clock" valueColor="amber" />
           <StatCard variant="metric" label="Paid" value={paid} icon="check" valueColor="green" />
         </div>
 
         {/* Tab bar */}
-        <div className="flex gap-6 border-b border-gray-200 mb-6">
+        <div className="flex gap-4 sm:gap-6 border-b border-gray-200 mb-6 overflow-x-auto">
           {([
             { id: 'assessments', label: 'Assessments' },
             { id: 'generate', label: 'Generate Assessment' },
@@ -278,7 +278,7 @@ export default function TaxDashboard() {
 
             {/* Assessments table */}
             <h2 className="text-[18px] font-bold text-[#111827] mb-3">All Assessments</h2>
-            <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden">
+            <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden overflow-x-auto">
               {loading ? (
                 <div className="p-4"><TableSkeleton rows={4} columns={6} /></div>
               ) : assessments.length === 0 ? (
@@ -371,7 +371,7 @@ export default function TaxDashboard() {
                 />
               </div>
             ) : (
-              <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden">
+              <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden overflow-x-auto">
                 <table className="w-full text-[14px]">
                   <thead className="bg-gray-50 border-b border-[#E5E7EB]">
                     <tr>
@@ -428,7 +428,7 @@ export default function TaxDashboard() {
 
         {/* VACANT PROPERTIES TAB */}
         {tab === 'vacant' && (
-          <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden">
+          <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden overflow-x-auto">
             {vacantLoading ? (
               <div className="p-4"><TableSkeleton rows={4} columns={5} /></div>
             ) : vacantProperties.length === 0 ? (

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import { useEffect, useState } from 'react';
 import { api } from '@/lib/api';
 import { useRouter } from 'next/navigation';
@@ -86,11 +86,11 @@ export default function LandlordDashboard() {
     <div className="min-h-screen bg-[#F3F4F6]">
       <NavBar portalName="Landlord Portal" />
 
-      <main className="max-w-7xl mx-auto px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-8 py-6 sm:py-8">
         {/* Header */}
         <div className="flex items-start justify-between mb-6">
           <div>
-            <h1 className="text-[36px] font-bold text-[#111827] leading-tight">My Properties</h1>
+            <h1 className="text-[24px] sm:text-[36px] font-bold text-[#111827] leading-tight">My Properties</h1>
             <p className="text-[14px] text-gray-500 mt-1">Manage your registered properties</p>
           </div>
           <Link href="/dashboard/landlord/register-property"
@@ -101,7 +101,7 @@ export default function LandlordDashboard() {
         </div>
 
         {/* Stats row — 4 inline cards */}
-        <div className="grid grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
           <StatCard variant="inline" label="Total Properties" value={total} />
           <StatCard variant="inline" label="Rejected" value={rejected} />
           <StatCard variant="inline" label="Active" value={active} />
@@ -208,7 +208,7 @@ export default function LandlordDashboard() {
       </main>
 
       {/* FR-TAX-003: Tax Assessments section */}
-      <main className="max-w-7xl mx-auto px-8 pb-12">
+      <main className="max-w-7xl mx-auto px-4 sm:px-8 pb-12">
         <div className="mb-6">
           <h2 className="text-[28px] font-bold text-[#111827] leading-tight">My Tax Assessments</h2>
           <p className="text-[14px] text-gray-500 mt-1">Your rental income tax obligations</p>
@@ -220,8 +220,8 @@ export default function LandlordDashboard() {
             <div className="text-center text-gray-500 text-[14px]">No tax assessments yet. They appear here after your contract is registered.</div>
           </div>
         ) : (
-          <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden">
-            <table className="w-full text-[14px]">
+          <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden overflow-x-auto">
+            <div className="overflow-x-auto"><table className="w-full text-[14px] min-w-[640px]">
               <thead className="bg-gray-50 border-b border-[#E5E7EB]">
                 <tr>
                   {['Fiscal Year', 'Property', 'Annual Rent', 'Tax Due (ETB)', 'Due Date', 'Status', 'Action'].map(h => (
@@ -279,15 +279,15 @@ export default function LandlordDashboard() {
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </table></div>
           </div>
         )}
       </main>
 
       {/* Fix 21: Active Sessions */}
-      <section className="max-w-7xl mx-auto px-8 py-6">
+      <section className="max-w-7xl mx-auto px-4 sm:px-8 py-4 sm:py-6">
         <h2 className="text-[18px] font-bold text-[#111827] mb-4">Active Sessions</h2>
-        <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden">
+        <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden overflow-x-auto">
           {sessionsLoading ? <div className="p-6 text-center text-gray-400 animate-pulse">Loading sessions...</div> :
            sessions.length === 0 ? <div className="p-6 text-center text-gray-400">No active sessions found.</div> : (
             <table className="min-w-full text-[13px] divide-y divide-gray-100">
@@ -312,7 +312,7 @@ export default function LandlordDashboard() {
       </section>
 
       {/* Fix 28: SMS Notification Preference */}
-      <section className="max-w-7xl mx-auto px-8 pb-10">
+      <section className="max-w-7xl mx-auto px-4 sm:px-8 pb-10">
         <div className="bg-white rounded-xl border border-[#E5E7EB] p-6 flex items-center justify-between">
           <div>
             <p className="text-[15px] font-semibold text-[#111827]">SMS Notifications</p>
