@@ -114,7 +114,7 @@ export default function LoginPage() {
               value={pin}
               onChange={e => setPin(e.target.value)}
               placeholder="••••"
-              maxLength={4}
+              maxLength={6}
               required
               className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-[20px] tracking-[0.25em] text-gray-900 placeholder-gray-400 placeholder:tracking-normal placeholder:text-[16px] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:border-transparent transition"
             />

@@ -57,7 +57,7 @@ function ResetPinContent() {
             <div>
               <label htmlFor="newPin" className="block text-sm font-medium text-gray-700">New 4-Digit PIN</label>
               <div className="mt-1">
-                <input id="newPin" type="password" required maxLength={4} minLength={4} value={newPin} onChange={(e) => setNewPin(e.target.value)} className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
+                <input id="newPin" type="password" required maxLength={6} minLength={4} value={newPin} onChange={(e) => setNewPin(e.target.value)} className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
               </div>
             </div>
             {error && <div className="text-red-600 text-sm">{error}</div>}
