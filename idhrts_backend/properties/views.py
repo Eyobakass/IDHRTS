@@ -34,7 +34,15 @@ class PropertyViewSet(viewsets.ModelViewSet):
         serializer.save(landlord=self.request.user, status='DRAFT')
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+        # DEMO PATCH: Inject first sub_city and woreda if missing
+        from users.models import SubCity, Woreda
+        data = request.data.copy() if hasattr(request.data, 'copy') else request.data
+        if not data.get('sub_city') and SubCity.objects.exists():
+            data['sub_city'] = str(SubCity.objects.first().id)
+        if not data.get('woreda') and Woreda.objects.exists():
+            data['woreda'] = str(Woreda.objects.first().id)
+            
+        serializer = self.get_serializer(data=data)
         if not serializer.is_valid():
             print('PROPERTY CREATION VALIDATION ERROR:', serializer.errors)
         serializer.is_valid(raise_exception=True)
